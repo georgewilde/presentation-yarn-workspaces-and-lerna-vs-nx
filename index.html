@@ -260,27 +260,6 @@
                 </section>
 
                 <section>
-                    <h2>Nx Features</h2>
-                    <ul>
-                        <li>
-                            <img
-                                src="images/checked.svg"
-                                alt="Tick"
-                                class="inline-block h-8 mr-3 mb-1"
-                            />Easily version features and publish them as
-                            packages
-                        </li>
-                        <li class="fragment">
-                            <img
-                                src="images/checked.svg"
-                                alt="Tick"
-                                class="inline-block h-8 mr-3 mb-1"
-                            />Simplify dependency package installation
-                        </li>
-                    </ul>
-                </section>
-
-                <section>
                     <h2>What does Nx give us?</h2>
                     <ul class="list-unstyled mt-4">
                         <li class="fragment">
@@ -392,48 +371,6 @@
                 </section>
 
                 <section>
-                    <h2>What is the workflow like?</h2>
-                    <ul class="list-disc">
-                        <li class="fragment">Planning</li>
-                        <li class="fragment">Use CLI to create a new app</li>
-                        <li class="fragment">Deploy to production</li>
-                        <li class="fragment">Sort out shared components</li>
-                        <li class="fragment">
-                            Focus on app specific domain logic
-                        </li>
-                    </ul>
-                    <aside class="notes">
-                        <p>
-                            Let’s say we’re creating a new micro-frontend
-                            application. Obviously we follow the usual planning
-                            and refinement, but when we know what we want to
-                            build, we use the Nx CLI to generate a new
-                            application in our mono-repo. We actually have our
-                            own second CLI command that tidies up the default Nx
-                            application template to fit some specific
-                            requirements we have. We are then able to deploy the
-                            “Hello world” application out to QA and production.
-                            In total that’s about an hours work.
-                        </p>
-                        <p>
-                            We can then start to pull in the shared components
-                            from the library, creating each of the routes
-                            required. The real effort is now all focussed on the
-                            real domain logic stuff. All the setup, UI, config,
-                            deployment stuff is just there, fully tested and
-                            ready to use.
-                        </p>
-                        <p>
-                            If we identify any components that we don’t already
-                            have, we build them inside the specific application.
-                            They can always be pulled out into the shared
-                            component library if we want to use it in another
-                            application in the future.
-                        </p>
-                    </aside>
-                </section>
-
-                <section>
                     <h2>What are the benefits?</h2>
                     <ul>
                         <li class="fragment">
@@ -511,6 +448,7 @@
                     <img
                         src="https://media.giphy.com/media/XHVmD4RyXgSjd8aUMb/giphy.gif"
                         alt="Questions?"
+                        class="mx-auto"
                     />
                     <aside class="notes">
                         <p>No notes</p>
