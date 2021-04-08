@@ -1,0 +1,18 @@
+{
+  "name": "yarn-workspaces-and-lerna-vs-nx",
+  "version": "1.0.0",
+  "description": "Presentation on the differences between Yarn Workspaces with Lerna and Nx.",
+  "homepage": "https://presentation-yarn-workspaces-and-lerna-vs-nx.netlify.app/",
+  "main": "index.html",
+  "repository": "git@github.com:georgewilde/presentation-yarn-workspaces-and-lerna-vs-nx.git",
+  "author": "George Wilde <george.wilde@amido.com>",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "dev": "live-server"
+  },
+  "devDependencies": {
+    "live-server": "1.2.1",
+    "prettier": "^2.2.1"
+  }
+}

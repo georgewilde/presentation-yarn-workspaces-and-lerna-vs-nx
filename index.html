@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>
+            Yarn Workspaces with Lerna vs Nx - Masters of the monorepo
+        </title>
+        <meta
+            name="description"
+            content="Presentation on the differences between Yarn Workspaces with Lerna and Nx."
+        />
+        <meta name="author" content="George Wilde" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta
+            name="apple-mobile-web-app-status-bar-style"
+            content="black-translucent"
+        />
+        <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="reveal.js/dist/reset.css" />
+        <link rel="stylesheet" href="reveal.js/dist/reveal.css" />
+        <link rel="stylesheet" href="styles/tailwind.css" />
+        <link rel="stylesheet" href="styles/amido-theme.css" id="theme" />
+        <link rel="stylesheet" href="styles/specific.css" />
+
+        <!-- Theme used for syntax highlighting of code -->
+        <link
+            rel="stylesheet"
+            href="reveal.js/plugin/highlight/monokai.css"
+            id="highlight-theme"
+        />
+    </head>
+    <body>
+        <div class="reveal">
+            <div class="slides">
+                <section>
+                    <a href="https://www.amido.com/">
+                        <img
+                            src="images/amido-logo-yellow.svg"
+                            alt="Amido logo"
+                            class="mx-auto mt-0 mb-16 h-44"
+                        />
+                    </a>
+                    <h3>Yarn Workspaces with Lerna vs Nx</h3>
+                    <h4>Masters of the monorepo</h4>
+                </section>
+
+                <section>
+                    <h2 class="mb-20">What is a monorepo?</h2>
+                    <img
+                        src="images/different-repo-types.svg"
+                        alt="Different types of repository structure"
+                        class="mx-auto h-64"
+                    />
+                    <aside class="notes">
+                        <p>A single repo that holds all your code</p>
+                        <p>
+                            Made popular by lots of companies including Google,
+                            Facebook, Twitter, Airbnb & Uber
+                        </p>
+                    </aside>
+                </section>
+
+                <section>
+                    <h2 class="mb-20">Why choose a monorepo?</h2>
+                    <ul>
+                        <li class="fragment">
+                            <img
+                                src="images/checked.svg"
+                                alt="Tick"
+                                class="inline-block h-8 mr-3 mb-1"
+                            />Share resources between features
+                            <br />
+                            <img
+                                src="images/checked.svg"
+                                alt="Tick"
+                                class="inline-block h-8 mr-3 mb-1 invisible"
+                            /><small>Consistency across features</small>
+                            <br />
+                            <img
+                                src="images/checked.svg"
+                                alt="Tick"
+                                class="inline-block h-8 mr-3 mb-1 invisible"
+                            /><small>Single place to make a change</small>
+                        </li>
+                        <li class="fragment mt-10">
+                            <img
+                                src="images/checked.svg"
+                                alt="Tick"
+                                class="inline-block h-8 mr-3 mb-1"
+                            />Easily refactor global features
+                            <br />
+                            <img
+                                src="images/checked.svg"
+                                alt="Tick"
+                                class="inline-block h-8 mr-3 mb-1 invisible"
+                            /><small>Single PR to affect all features</small>
+                        </li>
+                        <li class="fragment mt-10">
+                            <img
+                                src="images/checked.svg"
+                                alt="Tick"
+                                class="inline-block h-8 mr-3 mb-1"
+                            />Reuse code while keeping it isolated
+                        </li>
+                    </ul>
+                </section>
+                <section>
+                    <h2 class="mb-20">Yarn Workspaces with Lerna</h2>
+                    <img
+                        src="images/yarn-logo.png"
+                        alt="Yarn logo"
+                        class="h-32 inline-block"
+                    />
+                    +
+                    <img
+                        src="images/lerna-logo.png"
+                        alt="Lerna logo"
+                        class="h-32 inline-block"
+                    />
+                </section>
+                <section>
+                    <h2>Yarn Workspaces with Lerna</h2>
+                    <ul>
+                        <li>
+                            <img
+                                src="images/checked.svg"
+                                alt="Tick"
+                                class="inline-block h-8 mr-3 mb-1"
+                            />Easily version features and publish them as
+                            packages
+                        </li>
+                        <li class="fragment">
+                            <img
+                                src="images/checked.svg"
+                                alt="Tick"
+                                class="inline-block h-8 mr-3 mb-1"
+                            />Simplify dependency package installation
+                        </li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>Should I care about versioning packages?</h2>
+                    <ul class="list-disc">
+                        <li class="fragment">Open-source projects</li>
+                        <li class="fragment">Used by other organisations</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>
+                        <img
+                            src="images/create-react-app-logo.svg"
+                            alt="Create React app logo"
+                            class="h-32 inline-block"
+                        />create-react-app
+                    </h2>
+                    <ul class="list-disc">
+                        <li>Open-source</li>
+                        <li>11 packages</li>
+                        <li>Uses yarn workspaces with Lerna</li>
+                        <li>You can install any version you want</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>What about internal usage?</h2>
+                    <p>With versioning you need to consider:</p>
+                    <ul class="list-disc">
+                        <li class="fragment">
+                            How do you announce new versions?
+                        </li>
+                        <li class="fragment">
+                            Who is responsible for upgrading to use new
+                            versions?
+                        </li>
+                        <li class="fragment">
+                            Consumers need to know how to implement changes
+                        </li>
+                        <li class="fragment">
+                            Bugs / missing features are slower to identify
+                        </li>
+                        <li class="fragment">
+                            Multiple PRs to implement a new feature
+                        </li>
+                        <li class="fragment">
+                            Need to support multiple versions
+                        </li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>What if you forget about versioning?</h2>
+                    <ul class="list-disc">
+                        <li class="fragment">
+                            Provider responsible for implementation
+                        </li>
+                        <li class="fragment">
+                            Single PR to implement a new feature
+                        </li>
+                        <li class="fragment">
+                            Consult consumers about implementation
+                            <ul class="list-disc">
+                                <li>Less friction</li>
+                                <li class="fragment">Quicker</li>
+                                <li class="fragment">Cleaner</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </section>
+
+                <section>
+                    <img
+                        src="images/nx-logo.png"
+                        alt="Nx logo"
+                        class="mx-auto h-52"
+                    />
+                </section>
+
+                <section>
+                    <h2>What is Nx?</h2>
+                    <q
+                        >Nx is a set of extensible dev tools for mono-repos,
+                        which helps you develop like Google, Facebook, and
+                        Microsoft.</q
+                    >
+                    <ul class="list-unstyled mt-4">
+                        <li class="fragment">
+                            <img
+                                src="images/checked.svg"
+                                alt="Tick"
+                                class="inline-block h-8 mr-3 mb-1"
+                            />Open-source
+                        </li>
+                        <li class="fragment">
+                            <img
+                                src="images/checked.svg"
+                                alt="Tick"
+                                class="inline-block h-8 mr-3 mb-1"
+                            />Free
+                        </li>
+                        <li class="fragment">
+                            <img
+                                src="images/checked.svg"
+                                alt="Tick"
+                                class="inline-block h-8 mr-3 mb-1"
+                            />Ex-Angular developers and Google tech leads
+                        </li>
+                    </ul>
+                    <aside class="notes">
+                        <p>Sounds good</p>
+                        <p>It’s open-source</p>
+                        <p>free</p>
+                        <p>
+                            and the team that builds and maintains it are
+                            ex-core Angular developers and Google tech leads.
+                        </p>
+                    </aside>
+                </section>
+
+                <section>
+                    <h2>Nx Features</h2>
+                    <ul>
+                        <li>
+                            <img
+                                src="images/checked.svg"
+                                alt="Tick"
+                                class="inline-block h-8 mr-3 mb-1"
+                            />Easily version features and publish them as
+                            packages
+                        </li>
+                        <li class="fragment">
+                            <img
+                                src="images/checked.svg"
+                                alt="Tick"
+                                class="inline-block h-8 mr-3 mb-1"
+                            />Simplify dependency package installation
+                        </li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>What does Nx give us?</h2>
+                    <ul class="list-unstyled mt-4">
+                        <li class="fragment">
+                            <img
+                                src="images/checked.svg"
+                                alt="Tick"
+                                class="inline-block h-8 mr-3 mb-1"
+                            />Mono-repo
+                        </li>
+                        <li class="fragment">
+                            <img
+                                src="images/checked.svg"
+                                alt="Tick"
+                                class="inline-block h-8 mr-3 mb-1"
+                            />Libraries and applications
+                        </li>
+                        <li class="fragment">
+                            <img
+                                src="images/checked.svg"
+                                alt="Tick"
+                                class="inline-block h-8 mr-3 mb-1"
+                            />CLI
+                        </li>
+                        <li class="fragment">
+                            <img
+                                src="images/checked.svg"
+                                alt="Tick"
+                                class="inline-block h-8 mr-3 mb-1"
+                            />No versioning
+                        </li>
+                    </ul>
+                    <aside class="notes">
+                        <p>
+                            It gives us a single repository in which we can
+                            store our applications.
+                        </p>
+                        <p>
+                            It has a concept of libraries where we can pull out
+                            all our shared code.
+                        </p>
+                        <p>
+                            It also gives us a nice CLI that wraps around
+                            everything and provides a consistent toolkit of
+                            commands we can use to build, test and lint whatever
+                            we want.
+                        </p>
+                    </aside>
+                </section>
+
+                <section>
+                    <h2>First-class tool support</h2>
+                    <div class="grid grid-cols-3 gap-2 mt-20">
+                        <img
+                            src="images/react-logo.png"
+                            alt="React logo"
+                            class="h-20 mx-auto"
+                        />
+                        <img
+                            src="images/nextjs-logo.svg"
+                            alt="Next.js logo"
+                            class="h-20 mx-auto"
+                        />
+                        <img
+                            src="images/storybook-logo.png"
+                            alt="Storybook logo"
+                            class="h-20 mx-auto"
+                        />
+                        <img
+                            src="images/typescript-logo.png"
+                            alt="Typescript logo"
+                            class="h-20 mx-auto"
+                        />
+                        <img
+                            src="images/cypress-logo.png"
+                            alt="Cypress logo"
+                            class="h-20 mx-auto"
+                        />
+                        <img
+                            src="images/jest-logo.png"
+                            alt="Jest logo"
+                            class="h-20 mx-auto"
+                        />
+                        <img
+                            src="images/nestjs-logo.webp"
+                            alt="Nest.js logo"
+                            class="h-20 mx-auto"
+                        />
+                        <img
+                            src="images/node-logo.svg"
+                            alt="Node logo"
+                            class="h-20 mx-auto"
+                        />
+                        <img
+                            src="images/yarn-logo.png"
+                            alt="Yarn logo"
+                            class="h-20 mx-auto"
+                        />
+                    </div>
+                </section>
+
+                <section>
+                    <h2>What does it look like?</h2>
+                    <img
+                        src="images/nx-architecture.png"
+                        alt="Nx architecture"
+                        class="fragment"
+                        style="height: 500px"
+                    />
+                </section>
+
+                <section>
+                    <h2>What is the workflow like?</h2>
+                    <ul class="list-disc">
+                        <li class="fragment">Planning</li>
+                        <li class="fragment">Use CLI to create a new app</li>
+                        <li class="fragment">Deploy to production</li>
+                        <li class="fragment">Sort out shared components</li>
+                        <li class="fragment">
+                            Focus on app specific domain logic
+                        </li>
+                    </ul>
+                    <aside class="notes">
+                        <p>
+                            Let’s say we’re creating a new micro-frontend
+                            application. Obviously we follow the usual planning
+                            and refinement, but when we know what we want to
+                            build, we use the Nx CLI to generate a new
+                            application in our mono-repo. We actually have our
+                            own second CLI command that tidies up the default Nx
+                            application template to fit some specific
+                            requirements we have. We are then able to deploy the
+                            “Hello world” application out to QA and production.
+                            In total that’s about an hours work.
+                        </p>
+                        <p>
+                            We can then start to pull in the shared components
+                            from the library, creating each of the routes
+                            required. The real effort is now all focussed on the
+                            real domain logic stuff. All the setup, UI, config,
+                            deployment stuff is just there, fully tested and
+                            ready to use.
+                        </p>
+                        <p>
+                            If we identify any components that we don’t already
+                            have, we build them inside the specific application.
+                            They can always be pulled out into the shared
+                            component library if we want to use it in another
+                            application in the future.
+                        </p>
+                    </aside>
+                </section>
+
+                <section>
+                    <h2>What are the benefits?</h2>
+                    <ul>
+                        <li class="fragment">
+                            <img
+                                src="images/checked.svg"
+                                alt="Tick"
+                                class="inline-block h-8 mr-3 mb-1"
+                            />Cleaner codebase with reduced duplication
+                        </li>
+                        <li class="fragment">
+                            <img
+                                src="images/checked.svg"
+                                alt="Tick"
+                                class="inline-block h-8 mr-3 mb-1"
+                            />UI consistency across our products
+                        </li>
+                        <li class="fragment">
+                            <img
+                                src="images/checked.svg"
+                                alt="Tick"
+                                class="inline-block h-8 mr-3 mb-1"
+                            />Code consistency
+                        </li>
+                        <li class="fragment">
+                            <img
+                                src="images/checked.svg"
+                                alt="Tick"
+                                class="inline-block h-8 mr-3 mb-1"
+                            />Tooling is faster
+                        </li>
+                        <li class="fragment">
+                            <img
+                                src="images/checked.svg"
+                                alt="Tick"
+                                class="inline-block h-8 mr-3 mb-1"
+                            />Deployment pipeline is simpler
+                        </li>
+                    </ul>
+                    <aside class="notes">
+                        <p>No notes</p>
+                    </aside>
+                </section>
+
+                <section>
+                    <h2>Resources</h2>
+                    <ul class="list-disc">
+                        <li>
+                            This presentation:
+                            <a href="https://bit.ly/3kK2alb"
+                                >https://bit.ly/3kK2alb</a
+                            >
+                        </li>
+                        <li>Nx: <a href="https://nx.dev">https://nx.dev</a></li>
+                        <li>
+                            Yarn:
+                            <a
+                                href="https://classic.yarnpkg.com/en/docs/workspaces"
+                                >https://classic.yarnpkg.com/en/docs/workspaces</a
+                            >
+                        </li>
+                        <li>
+                            Lerna:
+                            <a href="https://github.com/lerna/lerna"
+                                >https://github.com/lerna/lerna</a
+                            >
+                        </li>
+                    </ul>
+                    <aside class="notes">
+                        <p>No notes</p>
+                    </aside>
+                </section>
+
+                <section>
+                    <h2>Thank you</h2>
+                    <img
+                        src="https://media.giphy.com/media/XHVmD4RyXgSjd8aUMb/giphy.gif"
+                        alt="Questions?"
+                    />
+                    <aside class="notes">
+                        <p>No notes</p>
+                    </aside>
+                </section>
+            </div>
+        </div>
+
+        <script src="reveal.js/dist/reveal.js"></script>
+        <script src="reveal.js/plugin/zoom/zoom.js"></script>
+        <script src="reveal.js/plugin/notes/notes.js"></script>
+        <script src="reveal.js/plugin/search/search.js"></script>
+        <script src="reveal.js/plugin/markdown/markdown.js"></script>
+        <script src="reveal.js/plugin/highlight/highlight.js"></script>
+        <script>
+            Reveal.initialize({
+                controls: true,
+                progress: true,
+                center: true,
+                hash: true,
+                plugins: [
+                    RevealZoom,
+                    RevealNotes,
+                    RevealSearch,
+                    RevealMarkdown,
+                    RevealHighlight,
+                ],
+            });
+            Reveal.configure({ pdfSeparateFragments: false });
+        </script>
+    </body>
+</html>
